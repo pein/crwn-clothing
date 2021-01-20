@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -21,7 +21,12 @@ const Header = ({ currentUser }) => (
         CONTACT
       </Link>
       {currentUser ? (
-        <div className="option" onClick={() => auth.signOut()}>
+        <div
+          className="option"
+          onClick={() => {
+            auth.signOut();
+          }}
+        >
           SIGN OUT
         </div>
       ) : (
@@ -33,8 +38,9 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-});
+const mapStateToProps = (state) => {
+  console.log("mapStateToProps", state);
+  return { currentUser: state.user.currentUser };
+};
 
 export default connect(mapStateToProps)(Header);
